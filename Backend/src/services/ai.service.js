@@ -35,10 +35,29 @@ const interviewReportSchema = z.object({
 async function generateInterviewReport({ resume, selfDescription, jobDescription }) {
 
 
-    const prompt = `Generate an interview report for a candidate with the following details:
-                        Resume: ${resume}
-                        Self Description: ${selfDescription}
-                        Job Description: ${jobDescription}
+  const prompt = `
+You are an expert technical interviewer.
+
+Generate a highly personalized interview preparation report for a Senior Frontend MERN Stack Developer with 2 years of experience.
+
+Candidate Information:
+Self Description: ${selfDescription}
+
+Job Description:
+${jobDescription}
+
+Requirements:
+- Focus heavily on React.js, JavaScript, MERN Stack, REST APIs, authentication, Redux, Tailwind CSS, frontend performance, state management, and system design.
+- Generate advanced frontend interview questions.
+- Avoid generic operating system questions unless specifically relevant.
+- Include:
+  1. Technical Questions
+  2. Behavioral Questions
+  3. Skill gaps
+  4. Learning roadmap
+  5. Match score
+
+Return response in proper JSON format.
 `
 
     const response = await ai.models.generateContent({

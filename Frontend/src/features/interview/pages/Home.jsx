@@ -8,13 +8,23 @@ const Home = () => {
     const { loading, generateReport,reports } = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
+    const [file, setFile] = useState(null);
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
     const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
-        const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+        const resumeFile = file
+       const formData = new FormData()
+
+formData.append("jobDescription", jobDescription)
+formData.append("selfDescription", selfDescription)
+
+if (resumeFile) {
+  formData.append("resume", resumeFile)
+}
+
+const data = await generateReport(formData)
         navigate(`/interview/${data._id}`)
     }
 
@@ -49,8 +59,7 @@ const Home = () => {
                             <span className='badge badge--required'>Required</span>
                         </div>
                         <textarea
-                            onChange={(e) => { setJobDescription(e.target.value) }}
-                            className='panel__textarea'
+                className='panel__textarea'
                             placeholder={`Paste the full job description here...\ne.g. 'Senior Frontend Engineer at Google requires proficiency in React, TypeScript, and large-scale system design...'`}
                             maxLength={5000}
                         />
@@ -81,7 +90,15 @@ const Home = () => {
                                 </span>
                                 <p className='dropzone__title'>Click to upload or drag &amp; drop</p>
                                 <p className='dropzone__subtitle'>PDF or DOCX (Max 5MB)</p>
-                                <input ref={resumeInputRef} hidden type='file' id='resume' name='resume' accept='.pdf,.docx' />
+                                <input
+  type="file"
+  accept=".pdf,.docx"
+  onChange={(e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0])
+    }
+  }}
+/>
                             </label>
                         </div>
 
