@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/sudeep7198/interview-ai-yt.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t interview-ai ./Backend'
+            }
+        }
+
+    }
+}
