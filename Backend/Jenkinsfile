@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/sudeep7198/interview-ai-yt.git'
+               git branch: 'main', url: 'https://github.com/sudeep7198/interview-ai-yt.git'
             }
         }
 
