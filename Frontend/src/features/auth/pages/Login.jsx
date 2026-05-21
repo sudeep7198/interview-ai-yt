@@ -31,7 +31,7 @@ const Login = () => {
                         <label htmlFor="email">Email</label>
                         <input
                             onChange={(e) => { setEmail(e.target.value) }}
-                            type="email" id="email" name='email' placeholder='Enter email address' />
+                            type="email" id="email" name='email' placeholder='Enter email addrs' />
                     </div>
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
